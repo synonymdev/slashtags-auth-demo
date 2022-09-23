@@ -1,0 +1,6 @@
+dist
+.parcel-cache
+backend/storage/cores
+backend/storage/primaryKey
+node_modules
+package-lock.json

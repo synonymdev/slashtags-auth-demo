@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "@synonymdev/slashtags-auth": "^1.0.0-alpha.1",
+    "@synonymdev/slashtags-sdk": "^1.0.0-alpha.17",
+    "fastify": "^3.25.3",
+    "jsonrpc-lite": "^2.2.0",
+    "nodemon": "^2.0.14",
+    "simple-jsonrpc-js": "^1.2.0",
+    "ws": "^8.2.3"
+  }
+}
