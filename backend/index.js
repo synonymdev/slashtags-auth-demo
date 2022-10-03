@@ -32,20 +32,26 @@ if (!exists) await publicDrive.put('/profile.json', c.encode(c.json, {
 }))
 
 const server = new Server(slashtag, {
-    onauthz: (token, remote) => {
-      if (!isValidUser(remote)) return { status: "error", message: "sign up first!"}
+  onauthz: (token, remote) => {
+    if (!isValidUser(remote)) return { status: "error", message: "sign up first!"}
 
-      const url = SlashURL.format(remote)
+    const url = SlashURL.format(remote)
 
-      // Check that token is valid, and remote isn't blocked
-      const valid = validateToken(token, url)
-      if (valid) {
-        console.log('Got valid session', token, "from:", url);
-        return { status: "ok" }
-      }
-      console.log('Got invalid session', token, "from:", url);
-      return {status: "error", message: "invalid token"}
+    // Check that token is valid, and remote isn't blocked
+    const valid = validateToken(token, url)
+    if (valid) {
+      console.log('Got valid session', token, "from:", url);
+      return { status: "ok" }
     }
+    console.log('Got invalid session', token, "from:", url);
+    return {status: "error", message: "invalid token"}
+  },
+  onmagiclink: () => {
+    return {
+      url: 'www.synonym.to',
+      validUntil: Number(new Date()) + 15 * 60 * 60
+    }
+  }
 })
 
 // Listen on server's Slashtag key through DHT connections

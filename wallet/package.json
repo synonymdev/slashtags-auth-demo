@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@ngneat/falso": "^3.1.0",
-    "@synonymdev/slashtags-auth": "^1.0.0-alpha.1",
+    "@synonymdev/slashtags-auth": "^1.0.0-alpha.4",
     "@synonymdev/slashtags-sdk": "^1.0.0-alpha.17",
     "b4a": "^1.6.0",
     "compact-encoding": "^2.11.0",
