@@ -1,10 +1,11 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom';
+import c from 'compact-encoding'
+
 import './styles/index.css';
 import { initialValue, reducer, StoreContext, generateProfile, types, slashtag } from './store';
 import { Home } from './pages/Home.js';
 import { ScanQRPage } from './pages/ScanQR';
-import b4a from 'b4a'
 
 export const App = () => {
   const [state, dispatch] = useReducer(reducer, initialValue);
@@ -26,7 +27,7 @@ export const App = () => {
 
       const drive = slashtag.drivestore.get()
       await drive.ready()
-      await drive.put('/profile.json', b4a.from(JSON.stringify(profile)))
+      await drive.put('/profile.json', c.encode(c.json, profile))
       console.log({drive: drive.key, version: drive.version})
 
       dispatch({

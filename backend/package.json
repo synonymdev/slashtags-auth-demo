@@ -10,6 +10,7 @@
   "dependencies": {
     "@synonymdev/slashtags-auth": "^1.0.0-alpha.2",
     "@synonymdev/slashtags-sdk": "^1.0.0-alpha.17",
+    "compact-encoding": "^2.11.0",
     "fastify": "^3.25.3",
     "jsonrpc-lite": "^2.2.0",
     "nodemon": "^2.0.14",

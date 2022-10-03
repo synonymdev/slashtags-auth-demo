@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import JsonRPC from 'simple-jsonrpc-js';
 import SDK, {SlashURL} from '@synonymdev/slashtags-sdk'
-import b4a from 'b4a'
+import c from 'compact-encoding'
 
 const socketURL =
   window.location.hostname === 'localhost'
@@ -47,8 +47,8 @@ export const setupRPC = async (dispatch) => {
 
     const drive = sdk.drive(key)
     await drive.ready()
-    const buf = await drive.get('/profile.json')
-    const profile = buf && JSON.parse(b4a.toString(buf))
+    const profile = await drive.get('/profile.json')
+      .then(buf => buf && c.decode(c.json, buf))
 
     dispatch({
       type: types.SET_USER,

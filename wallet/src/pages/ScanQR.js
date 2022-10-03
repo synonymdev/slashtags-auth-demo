@@ -4,7 +4,7 @@ import { StoreContext, types } from '../store';
 import { Sheet } from '../components/Sheet';
 import { Card } from '../components/Card';
 import { sdk } from '../store'
-import b4a from 'b4a'
+import c from 'compact-encoding'
 
 import { SlashURL } from '@synonymdev/slashtags-sdk';
 import { Client } from '@synonymdev/slashtags-auth';
@@ -43,8 +43,8 @@ export const ScanQRPage = () => {
       const parsed = SlashURL.parse(clipboard)
       const serverDrive = sdk.drive(parsed.key)
       await serverDrive.ready()
-      const buf = await serverDrive.get('/profile.json')
-      const serverProfile = buf && JSON.parse(b4a.toString(buf))
+      const serverProfile = await serverDrive.get('/profile.json')
+        .then(buf => buf && c.decode(c.json, buf))
 
       console.log("Resolved profile:", serverProfile)
        
