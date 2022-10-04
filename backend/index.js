@@ -48,7 +48,7 @@ const server = new Server(slashtag, {
   },
   onmagiclink: () => {
     return {
-      url: 'www.synonym.to',
+      url: 'https://www.synonym.to',
       validUntil: Number(new Date()) + 15 * 60 * 60
     }
   }
