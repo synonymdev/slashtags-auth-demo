@@ -14,8 +14,7 @@
   "dependencies": {
     "@synonymdev/slashtags-sdk": "^1.0.0-alpha.17",
     "b4a": "^1.6.0",
-    "compact-encoding": "^2.11.0",
-    "jdenticon": "^3.1.1",
+    "jdenticon": "^3.2.0",
     "qrcode": "^1.4.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

@@ -1,13 +1,13 @@
+import { SlashURL } from '@synonymdev/slashtags-sdk';
+import { Client } from '@synonymdev/slashtags-auth';
+import b4a from 'b4a'
+
 import { Template } from '../containers/Template';
 import { useContext, useState } from 'react';
 import { StoreContext, types } from '../store';
 import { Sheet } from '../components/Sheet';
 import { Card } from '../components/Card';
 import { sdk } from '../store'
-import c from 'compact-encoding'
-
-import { SlashURL } from '@synonymdev/slashtags-sdk';
-import { Client } from '@synonymdev/slashtags-auth';
 
 export const ScanQRPage = () => {
   const { state, dispatch } = useContext(StoreContext);
@@ -44,7 +44,7 @@ export const ScanQRPage = () => {
       const serverDrive = sdk.drive(parsed.key)
       await serverDrive.ready()
       const serverProfile = await serverDrive.get('/profile.json')
-        .then(buf => buf && c.decode(c.json, buf))
+        .then(buf => buf && JSON.parse(b4a.toString(buf)))
 
       console.log("Resolved profile:", serverProfile)
        

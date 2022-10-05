@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom';
-import c from 'compact-encoding'
+import b4a from 'b4a'
 
 import './styles/index.css';
 import { initialValue, reducer, StoreContext, generateProfile, types, slashtag } from './store';
@@ -27,7 +27,7 @@ export const App = () => {
 
       const drive = slashtag.drivestore.get()
       await drive.ready()
-      await drive.put('/profile.json', c.encode(c.json, profile))
+      await drive.put('/profile.json', b4a.from(JSON.stringify(profile)))
       console.log({drive: drive.key, version: drive.version})
 
       dispatch({
