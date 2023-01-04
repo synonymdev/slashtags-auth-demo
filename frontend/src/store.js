@@ -1,7 +1,5 @@
 import { createContext } from 'react';
 import JsonRPC from 'simple-jsonrpc-js';
-import SDK, {SlashURL} from '@synonymdev/slashtags-sdk'
-import b4a from 'b4a'
 
 const socketURL =
   window.location.hostname === 'localhost'
@@ -32,30 +30,16 @@ export const RPC = () => {
   });
 };
 
-const sdk = new SDK({ 
-  relay: 'ws://localhost:45475'
-})
-
 export const setupRPC = async (dispatch) => {
   const jrpc = await RPC();
 
   jrpc.call('clientID', { clientID });
 
   jrpc.on('userAuthenticated', ['user'], async (user) => {
-    console.log('UserAuthenticated: ', user);
-    const key = SlashURL.parse(user).key
-
-    const drive = sdk.drive(key)
-    await drive.ready()
-    const profile = await drive.get('/profile.json')
-      .then(buf => buf && JSON.parse(b4a.toString(buf)))
 
     dispatch({
       type: types.SET_USER,
-      user: {
-        url: user,
-        ...profile,
-      },
+      user,
     });
   });
 

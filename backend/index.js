@@ -64,16 +64,46 @@ const sessions = new Map();
 
 function isValidUser(_) { return true }
 
-function validateToken(token, user) {
+function validateToken(token, url) {
   const socket = sessions.get(token);
   if (!socket) return false
+
+  socket && sendUserToFrontend(socket, url)
+        .catch(noop)
+  return socket
+}
+
+async function sendUserToFrontend(socket, url) {
+  const key = SlashURL.parse(url).key
+  const drive = sdk.drive(key)
+
+  const profile = await drive.get('/profile.json')
+    .then(buf => {
+      if (!buf) {
+        console.log("Could not resolve profile", url)
+        return {}
+      }
+
+      return JSON.parse(b4a.toString(buf))
+    })
+    .catch(noop)
+  
+  console.log("sending to frontend", profile)
+    
+
   socket.send(
     jrpcLite
-    .notification('userAuthenticated', {user})
+    .notification('userAuthenticated', {
+      user: {
+        url,
+        ...profile
+      }
+    })
     .serialize(),
   );
-  return true
 }
+
+function noop () {}
 
 const app = fastify();
 
