@@ -27,9 +27,10 @@ export const ScanQRPage = () => {
     console.log("Authing to:", url)
 
     const response = await client.authz(url)
-    console.log(response)
+      .catch(noop)
+
     if (response?.status === 'ok') dispatch({ type: types.ADD_ACCOUNT, account: profile })
-    else if (response.message) alert ("Error:" + response.message)
+    else if (response?.message) alert ("Error:" + response?.message)
     else alert ("Couldn't connect to server")
   };
 
@@ -44,9 +45,17 @@ export const ScanQRPage = () => {
       const serverDrive = sdk.drive(parsed.key)
       await serverDrive.ready()
       const serverProfile = await serverDrive.get('/profile.json')
-        .then(buf => buf && JSON.parse(b4a.toString(buf)))
+        .then((buf) => {
+          if (!buf) {
+            console.log("Could not read server's profile")
+            return {}
+          }
+          const profile = JSON.parse(b4a.toString(buf))
+          console.log("Resolved profile:", profile)
+          return profile
+        })
+        .catch(noop)
 
-      console.log("Resolved profile:", serverProfile)
        
       setProfile({ ...serverProfile, id: parsed.id })
       setIsVisible(true)
@@ -83,3 +92,5 @@ export const ScanQRPage = () => {
     </Template>
   );
 };
+
+function noop () {}
