@@ -19,7 +19,7 @@ export const types = {
 const primaryKey = localStorage.getItem('primaryKey')
 
 export const sdk = new SDK({ 
-  relay: 'ws://localhost:45475',
+  relay: 'wss://dht-relay.synonym.to',
   primaryKey: primaryKey && b4a.from(primaryKey, 'hex')
 })
 

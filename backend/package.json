@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@synonymdev/slashtags-auth": "^1.0.0-alpha.4",
-    "@synonymdev/slashtags-sdk": "1.0.0-alpha.31",
+    "@synonymdev/slashtags-sdk": "^1.0.0-alpha.35",
     "b4a": "^1.6.0",
     "fastify": "^3.25.3",
     "jsonrpc-lite": "^2.2.0",
